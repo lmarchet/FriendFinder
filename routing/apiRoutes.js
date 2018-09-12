@@ -9,10 +9,6 @@ module.exports = function (app) {
         res.json(userInformation);
     });
 
-    var comparisonUserTotalScore = 0;
-
-    var friendScores = [];
-
     /* api POST REQUEST:
     - When a user submits form data (a JSON object) the JSON is pushed to the appropriate JavaScript array
     - this data is then sent to the server
@@ -21,14 +17,15 @@ module.exports = function (app) {
 
     app.post("/api/friends", function (req, res) {
 
+        var comparisonUserTotalScore = 0;
+        var friendScores = [];
+
         // var userResponse = req.body;
-
         // userInformation.push(userResponse);
-
         // Store current user scores in array.
         var currentUserScores = req.body.scores;
 
-        console.log("Current user scores: " + currentUserScores);
+        // console.log("Current user scores: " + currentUserScores);
 
         // Determine the user's most compatible friend.
         for (var i = 0; i < userInformation.length; i++) {
@@ -44,25 +41,26 @@ module.exports = function (app) {
 
         }
 
-        console.log("Array of friend scores: " + friendScores);
+        // console.log("Array of friend scores: " + friendScores);
 
         var index = 0;
         var value = friendScores[0];
 
         for (var i = 0; i < friendScores.length; i++) {
-            console.log("Value of item in array: " + friendScores[i]);
+            // console.log("Value of item in array: " + friendScores[i]);
             if (friendScores[i] < value) {
                 value = friendScores[i];
                 index = i;
             }
         }
 
-        console.log("Best friend name: " + userInformation[index].name);
+        console.log(index);
+        console.log("Best friend name: " + userInformation[index]);
 
         res.send(userInformation[index]);
 
-
         userInformation.push(req.body);
+        console.log(userInformation);
 
     });
 };
@@ -80,7 +78,7 @@ function calculateUserCompatibilityScore(currentUserScores, comparisonUserScores
         totalDifference += Math.abs(currentUserScores[i] - comparisonUserScores[i]);
     }
 
-    console.log("Final total difference for friend: " + totalDifference);
+    // console.log("Final total difference for friend: " + totalDifference);
 
     return totalDifference;
 };

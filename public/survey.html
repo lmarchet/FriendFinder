@@ -223,16 +223,17 @@
                     ]
                 };
 
-                console.log(`Form user response: ${userResponse}`);
+                console.log(userResponse);
 
                 // Grab the URL of the website
                 // var currentURL = window.location.origin;
 
-                console.log(`Current url from window: ${currentURL}`);
+                // console.log(`Current url from window: ${currentURL}`);
 
                 // AJAX post the data to the friends API. 
-                $.post("/app/data/friends", userInformation,
+                $.post("/api/friends", userResponse,
                     function (data) {
+                        console.log(data);
                         // Grab the result from the AJAX post so that the best match's name and photo are displayed.
                         // Most compatible friend name.
                         $("#matchName").text(data.name);
